@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-08T02:44:04.072Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36 OPR/80.0.4170.61" etag="BstsgXojKvVY328bzvIF" version="15.7.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-08T02:44:13.726Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36 OPR/80.0.4170.61" etag="Vq7UM6PyFMiOLPZx1xER" version="15.7.0" type="github">
   <diagram id="DqSAR1eta4Aplh36VHJp" name="Page-1">
     <mxGraphModel dx="1381" dy="1964" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -622,7 +622,7 @@
         <mxCell id="cy-2hxa1i92hY7S0N-3x-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" parent="1" source="cy-2hxa1i92hY7S0N-3x-10" target="0AynTZlASmMQr-Qh1-zb-154" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="cy-2hxa1i92hY7S0N-3x-10" value="TRABALHA EM CONJUNTO" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="cy-2hxa1i92hY7S0N-3x-10" value="TRABALHAM JUNTOS" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1241" y="330" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="cy-2hxa1i92hY7S0N-3x-15" value="1...N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
