@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-11-08T02:44:13.726Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36 OPR/80.0.4170.61" etag="Vq7UM6PyFMiOLPZx1xER" version="15.7.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-11-08T21:01:19.644Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36 OPR/80.0.4170.91" etag="n5-xAe-RGs2fgvLCjW8b" version="15.7.0" type="github">
   <diagram id="DqSAR1eta4Aplh36VHJp" name="Page-1">
     <mxGraphModel dx="1381" dy="1964" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -341,8 +341,8 @@
         <mxCell id="0AynTZlASmMQr-Qh1-zb-198" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="797" y="170" width="20" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="0AynTZlASmMQr-Qh1-zb-202" value="STATUS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="710" y="150" width="60" height="30" as="geometry" />
+        <mxCell id="0AynTZlASmMQr-Qh1-zb-202" value="CONDIÇÃO" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="720" y="150" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="0AynTZlASmMQr-Qh1-zb-204" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="730" y="170" width="20" height="20" as="geometry" />
@@ -409,8 +409,8 @@
         <mxCell id="xnUeOdPYaHrSIj6luqp0-6" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="730" y="430" width="20" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="xnUeOdPYaHrSIj6luqp0-8" value="STATUS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="710" y="440" width="60" height="30" as="geometry" />
+        <mxCell id="xnUeOdPYaHrSIj6luqp0-8" value="CONDIÇÃO" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="720" y="440" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="xnUeOdPYaHrSIj6luqp0-9" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="800" y="430" width="20" height="20" as="geometry" />
