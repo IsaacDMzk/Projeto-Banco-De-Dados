@@ -85,7 +85,7 @@ titulo VARCHAR(50),
 CREATE TABLE VOLUMES(
 numero_de_volumes INTEGER,
     ano_de_publicacao INTEGER,
-    ano_de_encerramento INTEGER,
+    situacao ENUM('Lançando','Completo'),
     titulo_manga VARCHAR(50),
     PRIMARY KEY(titulo_manga,numero_de_volumes),
     FOREIGN KEY (titulo_manga) REFERENCES MANGAS(titulo) ON DELETE CASCADE
@@ -93,8 +93,8 @@ numero_de_volumes INTEGER,
 
 CREATE TABLE CAPITULOS(
 numero_de_capitulos INTEGER,
-    titulo VARCHAR(50),
-    ano_de_publicacao INTEGER,
+    paginas_por_capitulo INTEGER,
+    capitulos_por_volume_aproximadamente INTEGER,
     tituloManga VARCHAR(50),
     numero_volume INTEGER,
 	PRIMARY KEY(tituloManga,numero_volume,numero_de_capitulos),
@@ -105,7 +105,7 @@ numero_de_capitulos INTEGER,
 CREATE TABLE TEMPORADAS(
 	numero_de_temporadas INTEGER,
 	ano_de_publicacao INTEGER,
-    ano_de_encerramento INTEGER,
+    situacao ENUM('Lançando','Completo'),
     titulo_anime VARCHAR(50),
     PRIMARY KEY(numero_de_temporadas,titulo_anime),
     FOREIGN KEY(titulo_anime) REFERENCES ANIMES(titulo) ON DELETE CASCADE
@@ -113,14 +113,13 @@ CREATE TABLE TEMPORADAS(
 
 CREATE TABLE EPISODIOS(
 numero_de_episodios INTEGER,
-    titulo VARCHAR(50),
-    ano_de_publicacao INTEGER,
+    minutos_por_episodio INTEGER,
+	episodios_por_temporada_aproximadamente INTEGER,
     titulo_anime VARCHAR(50),
-    temp_ep INTEGER,
-    PRIMARY KEY(numero_de_episodios,titulo_anime,temp_ep),
-    FOREIGN KEY (titulo_anime,temp_ep) REFERENCES TEMPORADAS(titulo_anime,numero_de_temporadas) ON DELETE CASCADE
+    temporadas INTEGER,
+    PRIMARY KEY(numero_de_episodios,titulo_anime,temporadas),
+    FOREIGN KEY (titulo_anime,temporadas) REFERENCES TEMPORADAS(titulo_anime,numero_de_temporadas) ON DELETE CASCADE
 );
-
 
 
 -- Relações
@@ -178,5 +177,3 @@ CNPJ_estudio INTEGER,
     FOREIGN KEY(email_dublador) REFERENCES DUBLADOR(email),
     PRIMARY KEY(CNPJ_estudio,email_dublador)
 );
-
-
