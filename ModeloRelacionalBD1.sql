@@ -1,43 +1,31 @@
 DROP TABLE IF EXISTS USUARIO_PARTICIPA_DE_CLUBES;
 DROP TABLE IF EXISTS USUARIO_ASSISTE_ANIMES;
 DROP TABLE IF EXISTS USUARIO_LE_MANGAS;
-DROP TABLE IF EXISTS MANGAS_TEM_VOLUMES;
-DROP TABLE IF EXISTS VOLUMES_TEM_CAPITULOS;
-DROP TABLE IF EXISTS ANIMES_TEM_TEMPORADAS;
-DROP TABLE IF EXISTS TEMPORADAS_TEM_EPISODIOS;
-DROP TABLE IF EXISTS ANIMES_TEM_ESTUDIO_PUBLICACAO;
-DROP TABLE IF EXISTS MANGAS_TEM_ESTUDIO_PUBLICACAO;
 DROP TABLE IF EXISTS ESTUDIO_PUBLICACAO_TEM_DESENHISTA;
-DROP TABLE IF EXISTS TRABALHAM_JUNTOS;
+DROP TABLE IF EXISTS ESTUDIOPUBLI_EQUIPEANIMADORES;
+DROP TABLE IF EXISTS ESTUDIOPUBLI_DUBLADORES;
+DROP TABLE IF EXISTS EPISODIOS;
+DROP TABLE IF EXISTS CAPITULOS;
+DROP TABLE IF EXISTS VOLUMES;
+DROP TABLE IF EXISTS TEMPORADAS;
+DROP TABLE IF EXISTS ANIMES;
+DROP TABLE IF EXISTS MANGAS;
 
 DROP TABLE IF EXISTS USUARIO;
-DROP TABLE IF EXISTS ANIMES;
 DROP TABLE IF EXISTS CLUBES;
-DROP TABLE IF EXISTS MANGAS;
-DROP TABLE IF EXISTS VOLUMES;
-DROP TABLE IF EXISTS CAPITULOS;
 DROP TABLE IF EXISTS ESTUDIO_DE_PUBLICACAO;
 DROP TABLE IF EXISTS DESENHISTA;
 DROP TABLE IF EXISTS DUBLADOR;
 DROP TABLE IF EXISTS EQUIPE_DE_ANIMADORES;
-DROP TABLE IF EXISTS TEMPORADAS;
-DROP TABLE IF EXISTS EPISODIOS;
 
 
 -- Entidades
 CREATE TABLE USUARIO(
 nick VARCHAR(20),
     nome VARCHAR(100),
-    genero VARCHAR(20),
-data_de_nascimento 	VARCHAR(20),
+    genero ENUM('Masculino','Feminino','Não especificado'),
+	idade INTEGER,
     PRIMARY KEY(nick)
-);
-
-CREATE TABLE ANIMES(
-titulo VARCHAR(50),
-    condicao ENUM ('Completed','Watching','Plan To Watch','On Hold','Droped'),
-    autor VARCHAR(50),
-    PRIMARY KEY(titulo)
 );
 
 CREATE TABLE CLUBES(
@@ -45,27 +33,6 @@ ID INTEGER,
     nome VARCHAR(100),
     descricao VARCHAR(300),
     PRIMARY KEY(ID)
-);
-
-CREATE TABLE MANGAS(
-titulo VARCHAR(50),
-    condicao ENUM ('Completed','Reading','Plan to Read','On Hold','Droped'),
-    autor VARCHAR(50),
-    PRIMARY KEY(titulo)
-);
-
-CREATE TABLE VOLUMES(
-numero_de_identificacao INTEGER,
-    data_de_publicacao VARCHAR(20),
-    data_de_encerramento VARCHAR(20),
-    PRIMARY KEY(numero_de_identificacao)
-);
-
-CREATE TABLE CAPITULOS(
-numero_de_identificacao INTEGER,
-    titulo VARCHAR(50),
-    data_de_publicacao VARCHAR(20),
-    PRIMARY KEY(numero_de_identificacao)
 );
 
 CREATE TABLE ESTUDIO_DE_PUBLICACAO(
@@ -96,18 +63,62 @@ ID_da_equipe INTEGER,
     PRIMARY KEY(ID_da_equipe)
 );
 
+
+CREATE TABLE ANIMES(
+titulo VARCHAR(50),
+    condicao ENUM ('Completed','Watching','Plan To Watch','On Hold','Droped'),
+    autor VARCHAR(50),
+    anime_estdPubli INTEGER,
+    FOREIGN KEY (anime_estdPubli) REFERENCES ESTUDIO_DE_PUBLICACAO(CNPJ),
+    PRIMARY KEY(titulo)
+);
+
+CREATE TABLE MANGAS(
+titulo VARCHAR(50),
+    condicao ENUM ('Completed','Reading','Plan to Read','On Hold','Droped'),
+    autor VARCHAR(50),
+    manga_estdPubli INTEGER,
+    FOREIGN KEY (manga_estdPubli) REFERENCES ESTUDIO_DE_PUBLICACAO(CNPJ),
+    PRIMARY KEY(titulo)
+);
+
+CREATE TABLE VOLUMES(
+numero_do_volume INTEGER,
+    ano_de_publicacao INTEGER,
+    ano_de_encerramento INTEGER,
+    titulo_manga VARCHAR(50),
+    PRIMARY KEY(titulo_manga,numero_do_volume),
+    FOREIGN KEY (titulo_manga) REFERENCES MANGAS(titulo) ON DELETE CASCADE
+);
+
+CREATE TABLE CAPITULOS(
+numero_do_capitulo INTEGER,
+    titulo VARCHAR(50),
+    ano_de_publicacao INTEGER,
+    tituloManga VARCHAR(50),
+    numero_volume INTEGER,
+	PRIMARY KEY(tituloManga,numero_volume,numero_do_capitulo),
+    FOREIGN KEY(tituloManga,numero_volume) REFERENCES VOLUMES(titulo_manga,numero_do_volume) ON DELETE CASCADE
+);
+
+
 CREATE TABLE TEMPORADAS(
-numero_de_identificacao INTEGER,
-data_de_publicacao VARCHAR(20),
-    data_de_encerramento VARCHAR(20),
-    PRIMARY KEY(numero_de_identificacao)
+	numero_da_temporada INTEGER,
+	ano_de_publicacao INTEGER,
+    ano_de_encerramento INTEGER,
+    titulo_anime VARCHAR(50),
+    PRIMARY KEY(numero_da_temporada,titulo_anime),
+    FOREIGN KEY(titulo_anime) REFERENCES ANIMES(titulo) ON DELETE CASCADE
 );
 
 CREATE TABLE EPISODIOS(
-numero_de_identificacao INTEGER,
+numero_do_episodio INTEGER,
     titulo VARCHAR(50),
-    data_de_publicacao VARCHAR(20),
-    PRIMARY KEY(numero_de_identificacao)
+    ano_de_publicacao INTEGER,
+    titulo_anime VARCHAR(50),
+    temp_ep INTEGER,
+    PRIMARY KEY(numero_do_episodio,titulo_anime,temp_ep),
+    FOREIGN KEY (titulo_anime,temp_ep) REFERENCES TEMPORADAS(titulo_anime,numero_da_temporada) ON DELETE CASCADE
 );
 
 
@@ -140,59 +151,6 @@ nick_usuario VARCHAR(20),
     PRIMARY KEY (nick_usuario,titulo_manga)
 );
 
-CREATE TABLE MANGAS_TEM_VOLUMES(
-titulo_manga VARCHAR(50),
-    ID_volume INTEGER,
-    
-    FOREIGN KEY (titulo_manga) REFERENCES MANGAS(titulo),
-    FOREIGN KEY (ID_volume) REFERENCES VOLUMES(numero_de_identificacao),
-    PRIMARY KEY (titulo_manga,ID_volume)
-);
-
-CREATE TABLE VOLUMES_TEM_CAPITULOS(
-ID_volume INTEGER,
-    ID_capitulo INTEGER,
-    
-    FOREIGN KEY (ID_volume) REFERENCES VOLUMES(numero_de_identificacao),
-    FOREIGN KEY (ID_capitulo) REFERENCES CAPITULOS(numero_de_identificacao),
-    PRIMARY KEY(ID_volume,ID_capitulo)
-);
-
-CREATE TABLE ANIMES_TEM_TEMPORADAS(
-titulo_anime VARCHAR(50),
-    ID_temporada INTEGER,
-    
-    FOREIGN KEY(titulo_anime) REFERENCES ANIMES(titulo),
-    FOREIGN KEY(ID_temporada) REFERENCES TEMPORADAS(numero_de_identificacao),
-    PRIMARY KEY(titulo_anime,ID_temporada)
-);
-
-CREATE TABLE TEMPORADAS_TEM_EPISODIOS(
-ID_temporada INTEGER,
-    ID_episodio INTEGER,
-    
-    FOREIGN KEY(ID_temporada) REFERENCES TEMPORADAS(numero_de_identificacao),
-    FOREIGN KEY(ID_episodio) REFERENCES EPISODIOS(numero_de_identificacao),
-    PRIMARY KEY(ID_temporada,ID_episodio)
-);
-
-CREATE TABLE ANIMES_TEM_ESTUDIO_PUBLICACAO(
-titulo_anime VARCHAR(50),
-    CNPJ_estudio INTEGER,
-    
-    FOREIGN KEY(titulo_anime) REFERENCES ANIMES(titulo),
-    FOREIGN KEY(CNPJ_estudio) REFERENCES ESTUDIO_DE_PUBLICACAO(CNPJ),
-    PRIMARY KEY(titulo_anime,CNPJ_estudio)
-);
-
-CREATE TABLE MANGAS_TEM_ESTUDIO_PUBLICACAO(
-titulo_manga VARCHAR(50),
-    CNPJ_estudio INTEGER,
-    
-    FOREIGN KEY(titulo_manga) REFERENCES MANGAS(titulo),
-    FOREIGN KEY(CNPJ_estudio) REFERENCES ESTUDIO_DE_PUBLICACAO(CNPJ),
-    PRIMARY KEY(titulo_manga,CNPJ_estudio)
-);
 
 CREATE TABLE ESTUDIO_PUBLICACAO_TEM_DESENHISTA(
 CNPJ_estudio INTEGER,
@@ -203,14 +161,20 @@ CNPJ_estudio INTEGER,
     PRIMARY KEY(CNPJ_estudio,email_desenhista)
 );
 
-CREATE TABLE TRABALHAM_JUNTOS(
+CREATE TABLE ESTUDIOPUBLI_EQUIPEANIMADORES(
 CNPJ_estudio INTEGER,
-    ID_equipe_de_animadores INTEGER,
+    ID_equipe INTEGER,
+    
+    FOREIGN KEY(CNPJ_estudio) REFERENCES ESTUDIO_DE_PUBLICACAO(CNPJ),
+    FOREIGN KEY(ID_equipe) REFERENCES EQUIPE_DE_ANIMADORES(ID_da_equipe),
+    PRIMARY KEY(CNPJ_estudio,ID_equipe)
+);
+
+CREATE TABLE ESTUDIOPUBLI_DUBLADORES(
+CNPJ_estudio INTEGER,
     email_dublador VARCHAR(100),
     
     FOREIGN KEY(CNPJ_estudio) REFERENCES ESTUDIO_DE_PUBLICACAO(CNPJ),
-    FOREIGN KEY(ID_equipe_de_animadores) REFERENCES EQUIPE_DE_ANIMADORES(ID_da_equipe),
     FOREIGN KEY(email_dublador) REFERENCES DUBLADOR(email),
-    PRIMARY KEY(CNPJ_estudio,ID_equipe_de_animadores,email_dublador)
+    PRIMARY KEY(CNPJ_estudio,email_dublador)
 );
-
