@@ -2,7 +2,7 @@
 SELECT A.titulo 
 FROM ANIMES A
 WHERE A.titulo IN (SELECT UA.titulo_anime
-				FROM USUARIO_ASSISTE_ANIMES UA
+		FROM USUARIO_ASSISTE_ANIMES UA
                 WHERE UA.nick_usuario = 'Diow Mizuk' );
                 
                 
@@ -10,7 +10,7 @@ WHERE A.titulo IN (SELECT UA.titulo_anime
 SELECT U.nick
 FROM USUARIO U
 WHERE U.idade <= ALL (SELECT U2.idade
-					FROM USUARIO U2);
+		    FROM USUARIO U2);
                     
 			
 
@@ -18,7 +18,7 @@ WHERE U.idade <= ALL (SELECT U2.idade
 SELECT U.nick
 FROM USUARIO U
 WHERE U.nick IN ( SELECT UA.nick_usuario
-				FROM USUARIO_ASSISTE_ANIMES UA
+		FROM USUARIO_ASSISTE_ANIMES UA
                 WHERE UA.titulo_anime = '86: Eighty Six');
                 
 
@@ -26,7 +26,7 @@ WHERE U.nick IN ( SELECT UA.nick_usuario
 SELECT M.titulo
 FROM MANGAS M
 WHERE M.titulo IN ( SELECT V.titulo_manga
-					FROM VOLUMES V
+		    FROM VOLUMES V
                     WHERE V.ano_de_publicacao <= 2010);
   
   
@@ -34,7 +34,7 @@ WHERE M.titulo IN ( SELECT V.titulo_manga
 SELECT D.nome_completo
 FROM DUBLADOR D
 WHERE NOT EXISTS( SELECT ED.email_dublador
-				FROM ESTUDIOPUBLI_DUBLADORES ED
+		FROM ESTUDIOPUBLI_DUBLADORES ED
                 WHERE ED.email_dublador = D.email);
                     
 
@@ -42,7 +42,7 @@ WHERE NOT EXISTS( SELECT ED.email_dublador
 SELECT U.nick,U.nome
 FROM USUARIO U
 WHERE NOT EXISTS(SELECT UC.nick_usuario
-				FROM USUARIO_PARTICIPA_DE_CLUBES UC
+		FROM USUARIO_PARTICIPA_DE_CLUBES UC
                 WHERE UC.nick_usuario = U.nick);
 
 
@@ -50,7 +50,7 @@ WHERE NOT EXISTS(SELECT UC.nick_usuario
 SELECT C.nome,C.descricao
 FROM CLUBES C
 WHERE C.ID IN ( SELECT UC.ID_clube
-				FROM USUARIO_PARTICIPA_DE_CLUBES UC
+		FROM USUARIO_PARTICIPA_DE_CLUBES UC
                 GROUP BY UC.nick_usuario
                 HAVING COUNT(UC.nick_usuario) >= 2);
                 
@@ -59,22 +59,22 @@ WHERE C.ID IN ( SELECT UC.ID_clube
 SELECT A.titulo
 FROM ANIMES A
 WHERE A.titulo IN ( SELECT E.titulo_anime
-					FROM EPISODIOS E
-                    WHERE E.numero_de_episodios > 80);
+	      	FROM EPISODIOS E
+                WHERE E.numero_de_episodios > 80);
                     
 
 -- 9 - Encontre as equipe de animadores que fazem parte de mais de um estudio de publicação
 SELECT E.nome_da_equipe
 FROM EQUIPE_DE_ANIMADORES E
 WHERE E.ID_da_equipe IN (SELECT EA.ID_equipe
-						FROM ESTUDIOPUBLI_EQUIPEANIMADORES EA
-							GROUP BY EA.ID_equipe
-                            HAVING COUNT(EA.ID_equipe) >=2);
+			FROM ESTUDIOPUBLI_EQUIPEANIMADORES EA
+			GROUP BY EA.ID_equipe
+                        HAVING COUNT(EA.ID_equipe) >=2);
                
                
 -- 10 - Encontre os animes que tiveram sua primeira temporada lançada antes de 2019 e possuem mais de 1 temporada              
 SELECT A.titulo
 FROM ANIMES A
 WHERE A.titulo IN ( SELECT T.titulo_anime
-					FROM TEMPORADAS T
+		    FROM TEMPORADAS T
                     WHERE T.ano_de_publicacao < 2019 AND T.numero_de_temporadas > 1);
