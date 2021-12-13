@@ -7,7 +7,7 @@ WHERE A.titulo IN (SELECT UA.titulo_anime
                 
                 
 -- 2- Encontre o nome do usuario mais novo
-SELECT U.nick
+SELECT U.nome
 FROM USUARIO U
 WHERE U.idade <= ALL (SELECT U2.idade
 		    FROM USUARIO U2);
